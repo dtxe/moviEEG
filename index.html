@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>moviEEG</title>
+	<meta name="keywords" content="toolbox, epilepsy, visualization, intracranial EEG, iEEG">
+	<meta name="description" content="An animation toolbox for visualization of intracranial electroencelphalography synrhonization dynamics">
+  <link rel="stylesheet" href="combo.css">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  
+	
+</head>
+<body>
+  <div id="main">
+
+    <nav><ul>
+      
+        
+        <li class="p-intro"><a href="#intro">Home</a></li>
+      
+        
+        <li class="p-tableoffunctions"><a href="#tableoffunctions">List of Functions</a></li>
+      
+        
+        <li class="p-download"><a href="#download">Download</a></li>
+      
+    </ul></nav>
+
+
+    
+      
+      <div id="intro" class="section p-intro">
+        
+        <div class="container center">
+          <p><span style="font-weight: 200; font-size: 70px;">moviEEG</span></p>
+
+<h3 id="an-animation-toolbox-for-visualization-of-intracranial-electroencephalography-synchronization-dynamics">An animation toolbox for visualization of intracranial electroencephalography synchronization dynamics</h3>
+
+<p>This supplementary materials website accompanies the original article available here: <a href="http://dx.doi.org/10.1016/j.clinph.2016.03.001">http://dx.doi.org/10.1016/j.clinph.2016.03.001</a></p>
+
+<div class="icontain" style="margin-bottom: 40px">
+    <iframe src="https://www.youtube.com/embed/8ksvOvmDeuI" frameborder="0" allowfullscreen=""></iframe>
+</div>
+
+<div style="border: #555 1px solid; padding: 10px; margin-bottom: 30px; font-size: 17px;">
+This video shows the connectivity dynamics of cortical regions recorded by an intracranial electroencephalography grid as a representative case of FCD type II epilepsy transitions into seizure.
+</div>
+
+<p>The phase-synchrony indexed functional connectivity and eigenvector centrality are derived from iEEG recordings, filtered at 7 frequency bands during the 60 seconds prior to and during the ictal period of a representative seizure detailed in the text.</p>
+
+<p>Blue lines represent a large increase in interelectrode synchronization relative to the interictal. Pink lines represents a large decrease in synchronization.</p>
+
+<p>In the bottom right box, the translucent overlay is calculated from HFO amplitude.</p>
+
+<p>Raw waveforms from representative electrodes (from top to bottom) outside, bordering, and within the clinical SOZ are shown at the bottom of the video, where the clinical seizure onset is denoted by the vertical dotted line.</p>
+
+<p><span style="color: red; font-weight: bold">This software is for research purposes only, and has not been validated for clinical use.</span></p>
+
+        </div>
+      </div>
+    
+      
+      <div id="tableoffunctions" class="section p-tableoffunctions">
+        
+        <div class="container left">
+          <h1 id="list-of-functions">List of Functions</h1>
+
+<h2 id="calculations">Calculations</h2>
+
+<p><strong>eegmov_calcconnectivity</strong><br />
+Calculates connectivity between all electrode pairs using a sliding window.</p>
+
+<h2 id="data-io">Data I/O</h2>
+
+<p><strong>eegmov_loadeegdata</strong><br />
+Loads iEEG data, overlays, grid electrode locations,</p>
+
+<h2 id="rendering">Rendering</h2>
+
+<p><strong>eegmov_rendermovie</strong><br />
+The main function that performs the rendering of the connectivity animation.</p>
+
+<p><strong>eegmov_rendermovie_framegrab</strong><br />
+This function renders a single frame of the movie for saving high-resolution figures (typically for printing).</p>
+
+<p><strong>eegmov_dispelectrodes</strong><br />
+Displays the electrode grid overlaid on the operating room image to check alignment, and for other debugging purposes.</p>
+
+        </div>
+      </div>
+    
+      
+      <div id="download" class="section p-download">
+        
+        <div class="container center">
+          <h1 id="download-the-toolbox">Download the toolbox</h1>
+
+<h3 id="option-1-clone-using-git"><strong>Option 1:</strong> Clone using git</h3>
+<p>Run the following code in your terminal:</p>
+
+<p><code>
+git clone http://github.com/dtxe/movieeg
+</code></p>
+<div style="height: 60px"></div>
+
+<h3 id="option-2-download-zip-archive"><strong>Option 2:</strong> Download zip archive</h3>
+
+
+        </div>
+      </div>
+    
+
+
+    <div id="footer" class="section text-white">
+      <div class="container">
+        
+        
+<p>Simeon Wong
+—
+Design by Tim O’Brien t413.com
+—
+this site is <a href="https://github.com/dtxe/moviEEG">open source</a></p>
+
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="site.js"></script>
+</html>
