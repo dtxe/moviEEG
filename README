@@ -1,0 +1,12 @@
+EEGmovie toolbox: renders connectivity movies of epilepsy data
+
+EEGmovie_pipeline folder
+ - contains functions which perform the actual calculations / rendering
+ 
+pipeline_prospective.m
+ - compilation of the steps used to generate the movies
+ 
+load_case folder
+ - contains directives on where raw data is located and how to load it
+ 
+
