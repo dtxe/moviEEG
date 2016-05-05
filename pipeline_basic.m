@@ -4,20 +4,13 @@
 % 2013 June 21
 
 %% Import toolbox
-if exist('eegmov_loadeegdata', 'file') ~= 2
-    addpath /sdata3/simeon/prod/eegmovie/EEGmovie_pipeline
-end
+addpath ./EEGmovie_pipeline
+addpath ./brain-connectivity-toolbox
 
-% Import runnotify
-run /sdata3/simeon/prod/runnotify/setup.m
-addpath /sdata4/toolboxes/brain-connectivity-toolbox/2014_04_05_BCT
-
-%% Reset parallel pool
-delete(gcp('nocreate'));
     
 %% Parameters
 FREQ_RANGE = [1 4; 4 7; 8 12; 13 32; 40 80; 80 150; 150 200;];
-RESOLUTION_DIV = 3;
+RESOLUTION_DIV = 3;     % divide the resolution for gridfitting. Higher number is faster. Lower number is higher quality.
 
 WND_LENGTH = 4000;      % length of each window
 WND_SHIFT  = 200;       % offset of subsequent window from previous
@@ -26,20 +19,19 @@ BASESAVE = '/data5/sample/save/directory/';
 
 CONN_METRIC = 'plv';
 
-USE_BASELINE = 1;       % whether to baseline with interictal period
+USE_BASELINE = true;       % whether to baseline with interictal period
 
 
 for s = 1:length(subj)
     % Reset everything, except for needed variables
     close all
     clearvars -except FREQ_RANGE RESOLUTION_DIV WND_LENGTH WND_SHIFT BASESAVE subj s CURRSCRIPT CONN_METRIC USE_BASELINE
-    parpool(4);
 
     %% Computations
     fprintf('\n\n---\nRunning subject %s\n', subj{s});
     
     % Load subject data
-    eegdata = eegmov_loadeegdata(subj{s});
+    eegdata = eegmov_loadeegdata(SUBJECT_DATABASE, subj{s}, 'edf');
     
     % Filter with specified frequencies
     filtdata = eegmov_firfilthilbert(eegdata, FREQ_RANGE);
@@ -56,15 +48,8 @@ for s = 1:length(subj)
     % If baselining with interictal
     if USE_BASELINE
         fprintf('Baselining...\n');
-        
-        % Get interictal data
-        if ~isempty(eegdata.interfn)
-            interfn = eegdata.interfn;
-        else
-            interfn = strcat(subj{s}, 'inter');
-        end
-        
-        intereegdata = eegmov_loadeegdata(interfn);
+
+        intereegdata = eegmov_loadeegdata(SUBJECT_DATABASE, subj{s}, 'interedf');
         interfiltdata = eegmov_firfilthilbert(intereegdata, FREQ_RANGE);
         interplvdata = eegmov_calcconnectivity(interfiltdata, 0, 0, CONN_METRIC);
         intergraphmetrics = eegmov_graphmetrics(@eigenvector_centrality_und, interplvdata);
@@ -127,8 +112,6 @@ for s = 1:length(subj)
     ampData.num_samples_cut = filtdata.num_samples_cut;
     ampData.data = eegdata.ampElectrodes;
     ampData.labels = eegdata.ampElectrodeLabels;
-
-    delete(gcp('nocreate'));
     
     %% Make a movie
     mov_savepath = strcat(BASESAVE,'C',subj{s},'_w',num2str(WND_LENGTH),'-',num2str(WND_SHIFT),'_ch67.mp4');
@@ -142,6 +125,6 @@ for s = 1:length(subj)
     
     % Notify user via pushover that subject has finished running
     alertstring = strcat('Movie saved: ', mov_savepath);
-    notify(alertstring);
+    fprintf(alertstring);
 
 end
